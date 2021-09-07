@@ -1,0 +1,37 @@
+//This pipeline uploads your containers to Elastic containers Registry
+pipeline{
+    
+    agent any
+    //Elastic Container Reference
+    environment {
+        registry = "<Your Container Registry URL>"
+    }
+    
+    stages {
+        
+        stage('checkout'){
+            steps{
+                //You can generate it in the pipeline syntax
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '<YourCredentialID>', url: '<Your Repository>']]])
+            }
+        }
+        stage('Build'){
+            steps{
+                script {
+                    dockerImage = docker.build registry
+                }
+            }
+        }
+        stage('Docker Push'){
+            steps{
+                script{
+                    //Go you your ECR and select -> Push Commands - You will se something like this
+                    sh 'aws ecr get-login-password --region <Region> | docker login --username AWS --password-stdin <AWS Password>'
+                    sh 'docker push <Your Repository>:ImageName'
+                }
+            }
+        }
+        
+    }
+    
+}
