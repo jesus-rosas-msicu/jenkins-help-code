@@ -1,0 +1,5 @@
+Plugins required to integrate it with docker
+Go to -> Manage Plugins -> Available -> Select -> Install
+-Docker Commons Plugins
+-Docker Pipeline
+
