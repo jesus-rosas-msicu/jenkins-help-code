@@ -46,7 +46,7 @@ setup_jenkins_ssl(){
     sudo apt update
     sudo apt install python-certbot-apache
     echo "[X] Generating a certificate"
-    sudo certbot --apache -m mexicanwatanuki@gmail.com -d gamelabs.ml -d www.gamelabs.ml -d jenkins.gamelabs.ml
+    sudo certbot --apache -m <Email> -d domain.com -d www.domain.com -d jenkins.domain.com
 }
 
 install_jenkins
